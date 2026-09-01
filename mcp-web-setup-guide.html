@@ -1,0 +1,429 @@
+<title>mcp-web on Your Mac</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+  :root {
+    --ground: #F6F8F6;
+    --surface: #FFFFFF;
+    --sunken: #ECF0EE;
+    --ink: #16201D;
+    --ink-soft: #4A5A55;
+    --ink-faint: #7A8985;
+    --rule: #D8E0DC;
+    --accent: #0E6A63;
+    --accent-soft: #E2F0ED;
+    --caution: #8A5A12;
+    --caution-soft: #FAF0DC;
+    --caution-rule: #D9A441;
+    --shadow: 0 1px 2px rgba(22,32,29,.06), 0 8px 24px -16px rgba(22,32,29,.28);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #121715;
+      --surface: #1A2220;
+      --sunken: #0D1211;
+      --ink: #E6EDEA;
+      --ink-soft: #A8B8B3;
+      --ink-faint: #788883;
+      --rule: #2B3634;
+      --accent: #52C4B4;
+      --accent-soft: #16302C;
+      --caution: #E3B25C;
+      --caution-soft: #2A2113;
+      --caution-rule: #8A6A25;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #121715;
+    --surface: #1A2220;
+    --sunken: #0D1211;
+    --ink: #E6EDEA;
+    --ink-soft: #A8B8B3;
+    --ink-faint: #788883;
+    --rule: #2B3634;
+    --accent: #52C4B4;
+    --accent-soft: #16302C;
+    --caution: #E3B25C;
+    --caution-soft: #2A2113;
+    --caution-rule: #8A6A25;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .74rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+  h1 {
+    font-family: "Zilla Slab", Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(2.1rem, 6vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -.015em;
+    text-wrap: balance;
+    margin: .5rem 0 0;
+  }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    margin: 1rem 0 0;
+    max-width: 34em;
+  }
+  header .meta {
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem 2rem;
+    font-size: .9rem;
+    color: var(--ink-faint);
+  }
+  header .meta b { color: var(--ink-soft); font-weight: 600; }
+
+  h2 {
+    font-family: "Zilla Slab", Georgia, serif;
+    font-weight: 600;
+    font-size: 1.45rem;
+    letter-spacing: -.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  h3 {
+    font-family: "Zilla Slab", Georgia, serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    margin: 0 0 .35rem;
+  }
+  p { margin: 0; max-width: 65ch; }
+  section { display: flex; flex-direction: column; gap: 1rem; }
+
+  ol.steps {
+    list-style: none;
+    counter-reset: step;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+  }
+  ol.steps > li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 2.4rem 1fr;
+    gap: 0 1rem;
+    align-items: start;
+  }
+  ol.steps > li::before {
+    content: counter(step);
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 600;
+    font-size: .9rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 999px;
+    width: 2.1rem;
+    height: 2.1rem;
+    display: grid;
+    place-items: center;
+    margin-top: -.15rem;
+  }
+  ol.steps .body {
+    display: flex;
+    flex-direction: column;
+    gap: .85rem;
+    min-width: 0;
+  }
+
+  pre {
+    margin: 0;
+    background: var(--sunken);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: .85rem 1rem;
+    overflow-x: auto;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .85rem;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .88em; }
+  p code, li code {
+    background: var(--sunken);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: .08em .35em;
+  }
+  .block { position: relative; }
+  .block button {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: .25rem .5rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .15s ease, color .15s ease;
+  }
+  .block:hover button, .block button:focus-visible { opacity: 1; }
+  .block button:hover { color: var(--accent); }
+
+  aside {
+    background: var(--caution-soft);
+    border-left: 3px solid var(--caution-rule);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+  }
+  aside h3 { color: var(--caution); margin: 0; }
+  aside p { color: var(--ink-soft); font-size: .95rem; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 1.25rem 1.4rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+  }
+
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  .scroll { overflow-x: auto; }
+  th, td { text-align: left; padding: .6rem .8rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .7rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+  }
+  td:first-child { white-space: nowrap; font-family: "IBM Plex Mono", monospace; font-size: .82rem; color: var(--accent); }
+  tr:last-child td { border-bottom: none; }
+
+  .divider { border: none; border-top: 1px solid var(--rule); margin: 0; }
+  .muted { color: var(--ink-soft); font-size: .95rem; }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+  footer { color: var(--ink-faint); font-size: .88rem; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Setup guide</p>
+    <h1>Give your LM Studio model the web</h1>
+    <p class="lede">A model running on your Mac has no internet. <code>mcp-web</code> is a small
+      server that hands it four abilities: search, read a page, call an API, and render a
+      JavaScript-heavy site. Fifteen minutes, one Terminal command.</p>
+    <div class="meta">
+      <span><b>You need</b> LM Studio 0.3.17 or newer</span>
+      <span><b>File</b> mcp-web-0.1.0.zip</span>
+      <span><b>Time</b> ~15 min</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>What it can do once it's running</h2>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Tool</th><th>What the model gets</th></tr></thead>
+        <tbody>
+          <tr><td>web_search</td><td>DuckDuckGo results — title, link, snippet. No API key, no account, no quota.</td></tr>
+          <tr><td>fetch_url</td><td>A page's actual article text, with navigation and ads stripped out.</td></tr>
+          <tr><td>http_request</td><td>Any HTTP call. This is the one for JSON APIs.</td></tr>
+          <tr><td>render_page</td><td>Loads a page in a real headless browser and runs its JavaScript. Optional — see step 5.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>Setup</h2>
+    <ol class="steps">
+
+      <li><div class="body">
+        <h3>Unzip it somewhere permanent</h3>
+        <p>Not Downloads, and not the Desktop if you tidy it. LM Studio launches the server from
+          wherever this folder lives, so moving it later breaks the connection. <code>~/mcp-web</code>
+          is a good home.</p>
+        <p class="muted">It's an ordinary <code>.zip</code> — double-click it. Nothing to install to open it.</p>
+      </div></li>
+
+      <li><div class="body">
+        <h3>Run the installer</h3>
+        <p>Open Terminal and run these two lines. The installer builds an isolated Python
+          environment inside the folder — it touches nothing else on your Mac.</p>
+        <div class="block">
+          <pre>cd ~/mcp-web
+./install.sh</pre>
+          <button type="button">Copy</button>
+        </div>
+        <p>If macOS refuses with <em>"cannot be opened because it is from an unidentified
+          developer"</em>, strip the download flag and try again:</p>
+        <div class="block">
+          <pre>xattr -d com.apple.quarantine install.sh
+chmod +x install.sh
+./install.sh</pre>
+          <button type="button">Copy</button>
+        </div>
+      </div></li>
+
+      <li><div class="body">
+        <h3>If it asks for a newer Python</h3>
+        <p>The server needs Python 3.11 or later. If yours is older, the installer stops and says
+          so rather than half-finishing. Install <code>uv</code>, which fetches its own Python:</p>
+        <div class="block">
+          <pre>curl -LsSf https://astral.sh/uv/install.sh | sh</pre>
+          <button type="button">Copy</button>
+        </div>
+        <p>Close Terminal, open it again, and re-run <code>./install.sh</code>.</p>
+      </div></li>
+
+      <li><div class="body">
+        <h3>Paste the config into LM Studio</h3>
+        <p>The installer finishes by printing a JSON block with your exact path already filled in.
+          Copy that block — don't retype it, the path has to be right.</p>
+        <p>In LM Studio: <b>right sidebar → Program tab → Install → Edit mcp.json</b>. Paste and save.
+          It looks like this:</p>
+        <div class="block">
+          <pre>{
+  "mcpServers": {
+    "mcp-web": {
+      "command": "/Users/you/mcp-web/.venv/bin/mcp-web"
+    }
+  }
+}</pre>
+          <button type="button">Copy</button>
+        </div>
+        <p>Already have other servers in there? Add <code>"mcp-web"</code> alongside them, inside the
+          same <code>"mcpServers"</code> object.</p>
+      </div></li>
+
+      <li><div class="body">
+        <h3>Optional: the headless browser</h3>
+        <p>Skip this. Most sites work without it. Come back only if a page returns empty because it
+          builds itself in JavaScript.</p>
+        <div class="block">
+          <pre>cd ~/mcp-web
+.venv/bin/python -m pip install playwright
+.venv/bin/playwright install chromium</pre>
+          <button type="button">Copy</button>
+        </div>
+        <p class="muted">Downloads about 400 MB. The fourth tool, <code>render_page</code>, shows up
+          the next time LM Studio starts the server.</p>
+      </div></li>
+
+      <li><div class="body">
+        <h3>Use it</h3>
+        <p>Load a model that supports tool use, switch <b>mcp-web</b> on for the chat, and ask it
+          something it can't answer from memory — today's news, a library's current version.
+          LM Studio asks you to approve each tool call, so you can watch what it's doing before you
+          trust it.</p>
+      </div></li>
+
+    </ol>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>What it will and won't reach</h2>
+    <p>By default the server refuses to connect to your own machine or your home network —
+      <code>localhost</code>, <code>192.168.x.x</code>, <code>10.x.x.x</code>, and the rest. Every
+      request is checked, including redirects, so a site can't bounce the model somewhere private.</p>
+    <p>This is on purpose. A model can be talked into things by a web page it just read, and without
+      that check the first thing it could be talked into is your router's admin panel.</p>
+    <aside>
+      <h3>Turning it off opens your LAN</h3>
+      <p>If you genuinely want the model to reach something running on your own machine, add an
+        <code>env</code> block to the LM Studio config. Know what that exposes before you do.</p>
+      <div class="block">
+        <pre>"mcp-web": {
+  "command": "/Users/you/mcp-web/.venv/bin/mcp-web",
+  "env": { "MCPWEB_ALLOW_PRIVATE": "1" }
+}</pre>
+        <button type="button">Copy</button>
+      </div>
+    </aside>
+    <p class="muted">Other settings — timeouts, size caps, a host allowlist — are listed in
+      <code>README.md</code> inside the folder.</p>
+  </section>
+
+  <hr class="divider">
+
+  <section>
+    <h2>If something breaks</h2>
+    <div class="card">
+      <h3>Check the server starts at all</h3>
+      <div class="block">
+        <pre>cd ~/mcp-web
+.venv/bin/python -c "import anyio; from mcp_web.server import mcp; print([t.name for t in anyio.run(mcp.list_tools)])"</pre>
+        <button type="button">Copy</button>
+      </div>
+      <p class="muted">Expect: <code>['web_search', 'fetch_url', 'http_request']</code> — plus
+        <code>render_page</code> if you did step 5.</p>
+    </div>
+    <div class="card">
+      <h3>The model can't see the tools</h3>
+      <p class="muted">Almost always the path in <code>mcp.json</code>, or a model that doesn't
+        support tool use. LM Studio prints the server's errors in the Program tab — look there first.
+        Restarting LM Studio after editing <code>mcp.json</code> is worth a try.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>mcp-web 0.1.0 — source and tests are in the folder you unzipped.</p>
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll(".block button").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var text = btn.parentElement.querySelector("pre").textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = "Copied";
+        setTimeout(function () { btn.textContent = "Copy"; }, 1600);
+      }, function () {
+        btn.textContent = "Press ⌘C";
+        setTimeout(function () { btn.textContent = "Copy"; }, 1600);
+      });
+    });
+  });
+</script>
